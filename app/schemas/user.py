@@ -11,6 +11,7 @@ class Gender(str, Enum):
     FEMALE = "Femme"
 
 class ActivityLevel(str, Enum):
+    SEDENTARY = "sedentaire"
     LIGHT = "leger"
     MODERATE = "modere"
     ACTIVE = "actif"
