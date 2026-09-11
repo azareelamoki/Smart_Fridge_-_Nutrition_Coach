@@ -1,4 +1,6 @@
 .idea/
 .venv/
-.env
-__pycache__/
+app/core/.env
+app/core/config.py
+app/core/generate_env
+launch_env.sh
