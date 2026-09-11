@@ -1,6 +1,0 @@
-.idea/
-.venv/
-app/core/.env
-app/core/config.py
-app/core/generate_env
-launch_env.sh
