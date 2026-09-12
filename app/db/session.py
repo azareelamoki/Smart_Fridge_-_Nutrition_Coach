@@ -1,3 +1,3 @@
-SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"
+DATABASE_URL = "sqlite:///./test.db"
 
 db = SessionLocal()
