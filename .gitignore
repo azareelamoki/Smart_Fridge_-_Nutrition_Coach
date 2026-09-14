@@ -2,7 +2,7 @@
 .idea/
 .venv/
 .vscode/
-app/core/.env
-app/core/generate_env_secret.sh
-app/core/generate_token.py
+generate_env_secret.sh
+generate_token.py
 launch_env.sh
+test.db
