@@ -9,5 +9,6 @@ class RegisterRequest(BaseModel):
     password: str
 
 class TokenResponse(BaseModel):
+    message: str = "You successfully authenticate to your account"
     access_token: str
     token_type: str = "bearer"
