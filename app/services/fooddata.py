@@ -7,7 +7,13 @@ async def check_connection(client: httpx.AsyncClient) -> dict:
     return {"status": "ok", "http_status": response.status_code}
 
 
-async def search_food_by_name(client: httpx.AsyncClient, name: str, page_size: int = 5) -> dict:
-    response = await client.get("/foods/search", params={"query": name, "pageSize": page_size})
+async def search_food_by_name(client: httpx.AsyncClient, name: str, page_size: int = 6) -> dict:
+    response = await client.get(
+        "/foods/search",
+        params={
+            "query": name,
+            "pageSize": page_size,
+        },
+    )
     response.raise_for_status()
     return response.json()

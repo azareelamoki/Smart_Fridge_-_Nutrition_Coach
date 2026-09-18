@@ -22,11 +22,14 @@ class FoodItem(BaseModel):
     def extract_macros(cls, data: dict[str, Any]) -> dict[str, Any]:
         for nutrient in data.get("foodNutrients", []):
             field = NUTRIENT_FIELD_MAP.get(nutrient.get("nutrientName", ""))
-            if field:
-                data[field] = nutrient.get("value")
-                unit = nutrient.get("unitName")
-                if unit:
-                    data[f"{field}_unit"] = unit.lower()
+            if not field:
+                continue
+            unit = nutrient.get("unitName")
+            if field == "calories" and (unit or "").upper() != "KCAL":
+                continue
+            data[field] = nutrient.get("value")
+            if unit:
+                data[f"{field}_unit"] = unit.lower()
         return data
 
 
