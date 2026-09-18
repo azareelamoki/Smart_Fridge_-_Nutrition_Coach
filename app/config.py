@@ -4,6 +4,8 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
 
     secret_key: str
+    supabase_url: str
+    supabase_publishable_key: str
     ALGORITHM: str = "HS256"
 
     mealdb_base_url: str

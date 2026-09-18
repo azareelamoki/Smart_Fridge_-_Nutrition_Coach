@@ -2,7 +2,10 @@ from passlib.context import CryptContext
 from datetime import datetime, timedelta
 from jose import jwt
 from app.config import settings
+from fastapi import Header, HTTPException
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 ACCESS_TOKEN_EXPIRE_MINUTES=30

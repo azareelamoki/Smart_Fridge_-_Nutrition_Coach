@@ -1,14 +1,18 @@
 from pydantic import BaseModel
 
 class LoginRequest(BaseModel):
-    email: str
+    username: str
     password: str
 
 class RegisterRequest(BaseModel):
-    email: str
+    username: str
     password: str
 
 class TokenResponse(BaseModel):
-    message: str = "You successfully authenticate to your account"
     access_token: str
-    token_type: str = "bearer"
+    token_type: str = "Bearer"
+
+class AuthMessageResponse(BaseModel):
+    message: str
+    id: int | str
+    username: str

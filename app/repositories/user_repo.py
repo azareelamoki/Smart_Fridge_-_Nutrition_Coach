@@ -1,16 +1,22 @@
-from sqlalchemy.orm import Session
-from app.models.user import User
+# from sqlalchemy.orm import Session
+# from app.models.user import User
+from app.config import settings
+from supabase import Client, create_client
 
 class UserRepository:
-    def __init__(self, db: Session):
-        self.db = db
+    def __init__(self, supabase: Client = create_client(settings.supabase_url, settings.supabase_publishable_key)):
+        self.supabase = supabase 
 
-    def get_by_email(self, email: str):
-        return self.db.query(User).filter(User.email == email).first()
+    def get_by_username(self, username: str):
+        response = self.supabase.table("users").select("*").eq("username", username).execute()
+        if not response:
+            return None    
+        return response.data[0]
 
-    def create(self, email: str, hashed_password: str):
-        user = User(email=email, hashed_password=hashed_password)
-        self.db.add(user)
-        self.db.commit()
-        self.db.refresh(user)
-        return user
+    def create(self, username: str, hashed_password: str):
+        data = {"username": username, "hashed_password": hashed_password}
+        response = self.supabase.table("users").insert(data).execute()
+        if not response.data:
+            return none
+
+        return response.data[0]
