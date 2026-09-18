@@ -8,9 +8,11 @@ from app.api.meals import router as meals_router
 from app.api.auth import router as auth_router
 from app.db.session import engine, Base
 from app.config import settings
-from app.dependencies import get_mealdb_client
+from app.dependencies import get_mealdb_client, get_fooddata_client
 from app.services.mealdb import get_random_meal
+from app.services.fooddata import search_food_by_name
 from app.schemas.meals_validation import MealsResponse
+from app.schemas.fooddata import FoodSearchResponse
 
 Base.metadata.create_all(bind=engine)
 
@@ -45,3 +47,9 @@ async def read_root():
 async def test_meal_validation(client: httpx.AsyncClient = Depends(get_mealdb_client)):
     data = await get_random_meal(client)
     return MealsResponse.model_validate(data)
+
+
+@app.get("/test-food-validation")
+async def test_food_validation(name: str, client: httpx.AsyncClient = Depends(get_fooddata_client)):
+    data = await search_food_by_name(client, name)
+    return FoodSearchResponse.model_validate(data)
