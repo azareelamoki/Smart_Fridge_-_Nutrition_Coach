@@ -11,7 +11,11 @@ class FoodItem(BaseModel):
     fdc_id: int = Field(alias="fdcId")
     description: str
     calories: float | None = None
+    calories_unit: str | None = None
     protein: float | None = None
+    protein_unit: str | None = None
+    reference_quantity: float = 100
+    reference_unit: str = "g"
 
     @model_validator(mode="before")
     @classmethod
@@ -20,6 +24,9 @@ class FoodItem(BaseModel):
             field = NUTRIENT_FIELD_MAP.get(nutrient.get("nutrientName", ""))
             if field:
                 data[field] = nutrient.get("value")
+                unit = nutrient.get("unitName")
+                if unit:
+                    data[f"{field}_unit"] = unit.lower()
         return data
 
 
