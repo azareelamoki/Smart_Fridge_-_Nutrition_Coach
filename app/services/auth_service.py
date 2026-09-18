@@ -7,6 +7,10 @@ class AuthService:
         self.repo = repo
 
     def register(self, username: str, password: str):
+        existing_user = self.repo.get_by_username(username)
+        if existing_user:
+            raise HTTPException(status_code=400, detail="Username already exists")
+        
         hashed = hash_password(password)
         return self.repo.create(username=username, hashed_password=hashed)
 

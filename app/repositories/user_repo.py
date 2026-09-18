@@ -9,7 +9,7 @@ class UserRepository:
 
     def get_by_username(self, username: str):
         response = self.supabase.table("users").select("*").eq("username", username).execute()
-        if not response:
+        if not response.data:
             return None    
         return response.data[0]
 
@@ -17,6 +17,6 @@ class UserRepository:
         data = {"username": username, "hashed_password": hashed_password}
         response = self.supabase.table("users").insert(data).execute()
         if not response.data:
-            return none
+            return None
 
         return response.data[0]

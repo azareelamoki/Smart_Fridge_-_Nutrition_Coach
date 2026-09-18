@@ -10,7 +10,7 @@ class RegisterRequest(BaseModel):
 
 class TokenResponse(BaseModel):
     access_token: str
-    token_type: str = "Bearer"
+    token_type: str = "bearer"
 
 class AuthMessageResponse(BaseModel):
     message: str
