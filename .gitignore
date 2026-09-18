@@ -6,3 +6,7 @@ generate_env_secret.sh
 generate_token.py
 launch_env.sh
 test.db
+app/__pycache__
+app/api/__pycache__
+app/schemas/__pycache__
+app/services/__pycache__
