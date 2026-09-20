@@ -34,6 +34,3 @@ async def search_meal_by_ingred(name: str, client: httpx.AsyncClient = Depends(g
 
     except httpx.HTTPError as exc:
         raise HTTPException(status_code=502, detail=f"Erreur TheMealDB: {exc}") from exc
- 
-
-# @router.get("/")
