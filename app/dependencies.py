@@ -1,8 +1,6 @@
 import httpx
 from fastapi import Request
 from fastapi import Depends
-from sqlalchemy.orm import Session
-from app.db.deps import get_db
 from app.repositories.user_repo import UserRepository
 from app.services.auth_service import AuthService
 
