@@ -7,7 +7,6 @@ from app.services.mealdb import get_random_meal, search_meal_by_name, search_mea
 
 router = APIRouter(prefix="/meals", tags=["meals"])
 
-
 @router.get("/search")
 async def search_meal(name: str, client: httpx.AsyncClient = Depends(get_mealdb_client)):
     try:

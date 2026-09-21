@@ -17,8 +17,8 @@ async def search_meal_by_ingredients(client: httpx.AsyncClient, main_ingred: str
     response.raise_for_status()
     return response.json()
 
-async def search_meal_by_ids(client: httpx.AsyncClient, ids: list[str]) -> list[dict[str, Any]]:
-    ids_details: list[dict[str, Any]] = []
+async def search_meal_by_ids(client: httpx.AsyncClient, ids: list[str]) -> list[dict]:
+    ids_details = []
 
     for meal_id in ids:
         response = await client.get("/lookup.php", params={"i": meal_id})
@@ -32,30 +32,45 @@ async def search_meal_by_ids(client: httpx.AsyncClient, ids: list[str]) -> list[
 
         meal = meals[0]
 
-        filtered_meal = {
-            "strMeal": meal.get("strMeal"),
-            "strIngredient1": meal.get("strIngredient1"),
-            "strIngredient2": meal.get("strIngredient2"),
-            "strIngredient3": meal.get("strIngredient3"),
-            "strIngredient4": meal.get("strIngredient4"),
-            "strIngredient5": meal.get("strIngredient5"),
-            "strIngredient6": meal.get("strIngredient6"),
-            "strIngredient7": meal.get("strIngredient7"),
-            "strIngredient8": meal.get("strIngredient8"),
-            "strIngredient9": meal.get("strIngredient9"),
-            "strIngredient10": meal.get("strIngredient10"),
-            "strIngredient11": meal.get("strIngredient11"),
-            "strIngredient12": meal.get("strIngredient12"),
-            "strIngredient13": meal.get("strIngredient13"),
-            "strIngredient14": meal.get("strIngredient14"),
-            "strIngredient15": meal.get("strIngredient15"),
-            "strIngredient16": meal.get("strIngredient16"),
-            "strIngredient17": meal.get("strIngredient17"),
-            "strIngredient18": meal.get("strIngredient18"),
-            "strIngredient19": meal.get("strIngredient19"),
-            "strIngredient20": meal.get("strIngredient20"),
-        }
+        ingredients = []
+        for i in range(1, 21):
+            ingdt = meal.get(f"strIngredient{i}")
+            if ingdt and ingdt.strip():
+                ingredients.append({
+                    "ingredient": ingdt,
+                    "calories": "",
+                    "protein": "",
+                    "fat": "",
+                    "carbs": "",
+                })
 
-        ids_details.append(filtered_meal)
+        ids_details.append({
+            "meal_name": meal.get("strMeal"),
+            "ingredients": ingredients
+        })
 
     return ids_details
+
+# async def search_meal_by_ids(client: httpx.AsyncClient, ids: list[str]) -> list[list[str]]:
+#     ids_details: list[list[str]] = []
+
+#     for meal_id in ids:
+#         response = await client.get("/lookup.php", params={"i": meal_id})
+#         response.raise_for_status()
+
+#         data = response.json()
+#         meals = data.get("meals") or []
+
+#         if not meals:
+#             continue
+
+#         meal = meals[0]
+
+#         ingdt_list_per_meal = []
+#         ingdt_list_per_meal.append(meal.get("strMeal"))
+#         for i in range (1, 21):
+#             ingdt = meal.get(f"strIngredient{i}")
+#             if ingdt and ingdt.strip():
+#                 ingdt_list_per_meal.append(ingdt)
+#         ids_details.append(ingdt_list_per_meal)
+#     return ids_details
