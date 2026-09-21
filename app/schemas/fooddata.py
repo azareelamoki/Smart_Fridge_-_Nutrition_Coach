@@ -4,6 +4,8 @@ from pydantic import BaseModel, Field, model_validator
 NUTRIENT_FIELD_MAP = {
     "Energy": "calories",
     "Protein": "protein",
+    "Total lipid (fat)": "fat",
+    "Carbohydrate, by difference": "carbs",
 }
 
 
@@ -14,6 +16,10 @@ class FoodItem(BaseModel):
     calories_unit: str | None = None
     protein: float | None = None
     protein_unit: str | None = None
+    fat: float | None = None
+    fat_unit: str | None = None
+    carbs: float | None = None
+    carbs_unit: str | None = None
     reference_quantity: float = 100
     reference_unit: str = "g"
 
