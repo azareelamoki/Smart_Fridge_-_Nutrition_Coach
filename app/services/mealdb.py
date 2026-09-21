@@ -1,3 +1,4 @@
+from typing import Any
 import httpx
 
 async def search_meal_by_name(client: httpx.AsyncClient, name: str) -> dict:
