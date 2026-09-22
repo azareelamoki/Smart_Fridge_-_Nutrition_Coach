@@ -6,6 +6,7 @@ from app.api.bmr import router as bmr_router
 from app.api.fooddata import router as fooddata_router
 from app.api.meals import router as meals_router
 from app.api.auth import router as auth_router
+from app.api.nutrition import router as nutrition_router
 from app.db.session import engine, Base
 from app.config import settings
 from app.dependencies import get_mealdb_client, get_fooddata_client
@@ -36,6 +37,7 @@ app.include_router(auth_router)
 app.include_router(bmr_router)
 app.include_router(meals_router)
 app.include_router(fooddata_router)
+app.include_router(nutrition_router)
 
 
 @app.get("/")
