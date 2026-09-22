@@ -1,3 +1,4 @@
+from app.schemas.fooddata import FoodItem
 from app.schemas.fridge_filtering_schema.meal_filter_schema import Food_Filter
 import re
 
