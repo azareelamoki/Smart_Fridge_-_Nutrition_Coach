@@ -77,3 +77,22 @@ def split_targets_per_meal(targets: MacroTargets, meals_per_day: int) -> MacroTa
         fat_g=round(targets.fat_g / meals_per_day, 2),
         carbs_g=round(targets.carbs_g / meals_per_day, 2),
     )
+
+#Verifier les resultat avant push
+def score_meal_match(meal_totals: dict, target: MacroTargets) -> float:
+    pairs = [
+        (meal_totals.get("total_calories", 0), target.calories),
+        (meal_totals.get("total_protein", 0), target.protein_g),
+        (meal_totals.get("total_fat", 0), target.fat_g),
+        (meal_totals.get("total_carbs", 0), target.carbs_g),
+    ]
+    relative_diffs = [
+        (value - target_value) / target_value if target_value else 0
+        for value, target_value in pairs
+    ]
+    return sum(diff ** 2 for diff in relative_diffs) ** 0.5
+
+
+def rank_meals_by_target(meals: list[dict], target: MacroTargets, count: int) -> list[dict]:
+    ranked_meals = sorted(meals, key=lambda meal: score_meal_match(meal, target))
+    return ranked_meals[:count]

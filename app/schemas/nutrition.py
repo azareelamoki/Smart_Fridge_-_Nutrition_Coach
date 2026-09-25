@@ -48,3 +48,26 @@ class MealPlanResponse(BaseModel):
     daily_targets: MacroTargets
     meals_per_day: int
     per_meal_targets: MacroTargets
+
+
+class MealMatchRequest(BaseModel):
+    ingredient: str
+    user: User
+    meals_per_day: int = Field(default=3, ge=1, le=6)
+
+
+class MatchedMeal(BaseModel):
+    meal_name: str
+    total_calories: float
+    total_protein: float
+    total_fat: float
+    total_carbs: float
+
+
+class MealMatchResponse(BaseModel):
+    bmr: float
+    tdee: float
+    daily_targets: MacroTargets
+    meals_per_day: int
+    per_meal_targets: MacroTargets
+    matched_meals: list[MatchedMeal]
