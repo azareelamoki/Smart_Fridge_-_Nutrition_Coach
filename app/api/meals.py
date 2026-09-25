@@ -26,7 +26,7 @@ async def search_meal_by_ingred(name: str, client: httpx.AsyncClient = Depends(g
     try:
         response_data = await search_meal_by_ingredients(client, name)
         meal_list = response_data.get("meals") or []
-        id_list = get_meals_ids(meal_list)
+        id_list = get_meals_ids(meal_list)[:10]
         meals_details_by_id = await search_meal_by_ids(client, client2, id_list)
         return meals_details_by_id
 
