@@ -1,0 +1,54 @@
+@theme {
+  --font-sans: "Outfit", system-ui, sans-serif;
+  --font-display: "Fredoka", "Outfit", sans-serif;
+  --font-head: "Archivo", "Outfit", sans-serif;
+  --font-serif: "Fraunces", Georgia, serif;
+
+  /* Orange de la marque (bandeaux latéraux, boutons) */
+  --color-brand-300: #f4a261;
+  --color-brand-400: #f0883a;
+  --color-brand-500: #e8751a;
+  --color-brand-600: #d0640f;
+  --color-brand-700: #b3550b;
+
+  /* Fonds sombres */
+  --color-ink-950: #1a1b16;
+  --color-ink-900: #212121;
+  --color-ink-850: #262626;
+  --color-ink-800: #20221c;
+  --color-ink-700: #2c2f27;
+  --color-ink-600: #3a3d33;
+
+  /* Vert (accents, succès) */
+  --color-leaf-300: #7ddc9b;
+  --color-leaf-400: #3fc574;
+  --color-leaf-500: #2ea85c;
+  --color-leaf-600: #238a4a;
+  --color-mint: #d3f0cf;
+
+  /* Cartes claires */
+  --color-paper: #f1f1ef;
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    min-height: 100%;
+  }
+
+  body {
+    @apply bg-ink-900 font-sans text-white antialiased;
+  }
+
+  ::selection {
+    @apply bg-brand-500 text-white;
+  }
+}
+
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
